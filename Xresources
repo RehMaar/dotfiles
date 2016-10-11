@@ -1,0 +1,33 @@
+! uxterm
+UXTerm*renderFont: true
+UXTerm*faceName: Terminus
+UXTerm*faceSize: 11
+UXTerm*foreground: white
+UXTerm*cursorColor: blue
+UXTerm*background: black
+UXTerm*locale: true
+
+! urxvt
+URxvt.renderFont: true
+URxvt.faceSize: 10
+URxvt.foreground: white
+URxvt.cursorColor: blue
+URxvt.background: black
+URxvt.locale: true
+URxvt.font:     xft:dejavu sans mono:size=11:antialias=true
+URxvt.boldFont: xft:dejavu sans mono:bold:size=11:antialias=true
+URxvt.scrollBar: false
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.letterSpace: -1
+URxvt.perl-lib:$HOME/bin/urxvt-perl-lib
+URxvt.perl-ext-common:default,resize-font,matcher
+
+URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.transparent:          false
+URxvt.fading:               0
+URxvt.loginShell:           true
+URxvt.saveLines:            5000
+URxvt.internalBorder:       3
+URxvt.lineSpace:            0

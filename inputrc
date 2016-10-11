@@ -1,0 +1,10 @@
+set completion-ignore-case on                                         
+                                                                      
+set show-all-if-ambiguous on                                          
+                                                                      
+set completion-query-items 200                                        
+                                                                      
+set skip-completed-text on                                            
+                                                                      
+"\e[B": history-search-forward                                        
+"\e[A": history-search-backward        
