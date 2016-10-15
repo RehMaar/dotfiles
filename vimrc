@@ -1,3 +1,10 @@
+set laststatus=2  
+set statusline=%f%m%r%h%w\ %y\ enc:%{&enc}\ col:%2c\ line:%2l/%L\ [%2p%%]
+
+set formatoptions=cro
+
+set wrap
+
 colorscheme molokai
 set shiftwidth=4
 set tabstop=4
@@ -52,7 +59,7 @@ set encoding=utf-8
 :inoremap { {}<esc>i
 :inoremap [ []<esc>i
 
-execute pathogen#infect()
+"execute pathogen#infect()
 
 au FileType perl,php       set iskeyword-=.
 au FileType perl,php       set iskeyword-=$
@@ -85,32 +92,6 @@ function AddPerlDict()
     set dict+=~/.vim/dict/perl.txt
     set complete+=k
 endfunction
-
-" TagBar
-let g:tagbar_sort = 0
-let g:tagbar_show_linenumbers = -1
-let g:tagbar_autopreview = 1
-
-" Indent_guides
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_guide_size            = 1
-
-" AirLine
-let g:airline_theme = 'raven'
-
-
-" Syntastic
-let g:syntastic_check_on_open = 1
-let g:syntastic_mode_map      = {
-            \'mode': 'active',
-            \'passive_filetypes': ['groovy', 'kotlin', 'scala', 'clojure', 'lisp', 'eruby', 'slim', 'jade', 'scss', 'less', 'css', 'html', 'xhtml']
-            \}
-
-let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_c_compiler_options = '-std=c11 -Wall'
-let g:syntastic_cpp_compiler_options = '-std=c++14 -Wall'
-
 
 " Ctrl + ]
 nmap <c-]> g<c-]>
@@ -338,8 +319,6 @@ au FileType java    call JavaMap()
 au FileType perl    call PerlMap()
 au FileType sh      call SHMap()
 au FileType javascript call JSMap()
-
-let g:syntastic_asm_checkers = []
 
 au BufEnter * silent loadview
 au BufLeave * mkview
