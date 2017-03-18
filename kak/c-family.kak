@@ -141,12 +141,15 @@ def -hidden c-family-insert-on-newline %[ eval -draft %[
 # c specific
 addhl -group /c/code regex %{\b-?(0x[0-9a-fA-F]+|\d+)[fdiu]?|'((\\.)?|[^'\\])'} 0:value
 %sh{
+	asdsad a: 213213
     # Grammar
     keywords="while|for|if|else|do|switch|case|default|goto|asm|break|continue|return|sizeof"
-    attributes="const|auto|register|inline|static|volatile|struct|enum|union|typedef|extern|restrict"
+    keywords="${keywords}|(\S+)(?=:)"
+	attributes="const|auto|register|inline|static|volatile|struct|enum|union|typedef|extern|restrict"
     types="void|char|short|int|long|signed|unsigned|float|double|size_t"
-	types="${types}|(u?int(8|16|32|64)_t)|DIR|FILE|\w(\w|\d)*_t"
-    values="NULL"
+	types="${types}|(u?int(8|16|32|64)_t)|DIR|FILE|\w(\w|\d)*_t|bool"
+    values="NULL|false|true"
+
 
     # Add the language's grammar to the static completion list
     printf %s\\n "hook global WinSetOption filetype=c %{
