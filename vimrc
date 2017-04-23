@@ -1,4 +1,4 @@
-set laststatus=2  
+set laststatus=2
 set statusline=%f%m%r%h%w\ %y\ enc:%{&enc}\ col:%2c\ line:%2l/%L\ [%2p%%]
 
 set formatoptions=cro
@@ -8,13 +8,14 @@ set wrap
 colorscheme molokai
 set shiftwidth=4
 set tabstop=4
-set nowrap
+set expandtab
+
+set wrap
 
 set foldmethod=syntax
 
 au BufRead,BufNewFile *.h           setlocal ft=c
 au BufRead,BufNewFile *.hpp         setlocal ft=cpp
-
 
 set backspace=2
 set autoindent
@@ -47,14 +48,6 @@ filetype plugin indent on
 
 set encoding=utf-8
 
-"execute pathogen#infect()
-
-au FileType perl,php       set iskeyword-=.
-au FileType perl,php       set iskeyword-=$
-au FileType perl,php       set iskeyword-=-
-au FileType nginx          set iskeyword-=/
-au FileType nginx          set iskeyword-=.
-
 au FileType c          call AddCDict()
 au FileType cpp        call AddCPPDict()
 au FileType java       call AddJavaDict()
@@ -81,6 +74,8 @@ function AddPerlDict()
     set complete+=k
 endfunction
 
+autocmd BufWritePre * %s/\s\+$//e
+
 " \rm
 imap <leader>rm <esc>:%s/<c-v><c-m>//g<cr>
 nmap <leader>rm :%s/<c-v><c-m>//g<cr>
@@ -96,13 +91,12 @@ nmap <leader>ra <esc>\rt<esc>\rb<esc>gg=G<esc>gg<esc>
 map gG Go
 imap <C-c> <Esc>:
 imap <C-z> <Esc>
-map pO O<Esc> 
-map po o<Esc> 
+map pO O<Esc>
+map po o<Esc>
 
-au BufEnter * silent loadview
-au BufLeave * mkview
+
 
 au BufNewFile *.pl s/$/#!\/bin\/perl\r\ruse v5.10;\ruse strict;\ruse warnings;\r\r / | 7
 au BufNewFile *.pm s/$/use v5.10;\ruse strict;\ruse warnings;\r\r/ | 5
-au BufNewFile *.sed s/$/#!\/usr\/bin\/sed -nf\r\r/ | 3   
+au BufNewFile *.sed s/$/#!\/usr\/bin\/sed -nf\r\r/ | 3
 au BufNewFile *.sh  s/$/#!\/usr\/bin\/bash\r\r/ | 3
