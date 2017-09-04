@@ -147,7 +147,7 @@ addhl -group /c/code regex %{\b-?(0x[0-9a-fA-F]+|\d+)[fdiu]?|'((\\.)?|[^'\\])'} 
     keywords="${keywords}|(\S+)(?=:)"
 	attributes="const|auto|register|inline|static|volatile|struct|enum|union|typedef|extern|restrict"
     types="void|char|short|int|long|signed|unsigned|float|double|size_t"
-	types="${types}|(u?int(8|16|32|64)_t)|DIR|FILE|\w(\w|\d)*_t|bool"
+	types="${types}|(u?int(8|16|32|64)_t)|DIR|FILE|bool"
     values="NULL|false|true"
 
 
