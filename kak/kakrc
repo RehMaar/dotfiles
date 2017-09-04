@@ -1,7 +1,6 @@
-colorscheme base16
+colorscheme default
 
 set current tabstop 4 
-
 
 hook global WinCreate .* %{ addhl number_lines }
 # User added hook
@@ -11,3 +10,5 @@ hook global WinCreate .*\.(c|h) %{
 }
 
 map global insert <C-q> <esc>
+# Remove trailing spaces.
+map global user <C-q>  '%s +(?=\n)<ret>d'
