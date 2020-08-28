@@ -1,0 +1,80 @@
+[theme]
+name = "modern"
+[icons]
+name = "awesome"
+
+[icons.overrides]
+volume_full="♪: "
+volume_half="♪: "
+volume_empty="♪: "
+volume_muted="♪: "
+time = ""
+
+[[block]]
+block = "net"
+device = "wlp3s0"
+ssid = true
+ip = true
+signal_strength = false
+speed_up = false
+speed_down = false
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 10.0
+alert = 5.0
+
+[[block]]
+block = "disk_space"
+path = "/home"
+alias = "/home"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 5.0
+alert = 1.0
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mug}GiB"
+
+#[[block]]
+#block = "cpu"
+#interval = 1
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
+block = "battery"
+device = "BAT1"
+interval = 1
+format = "{percentage}% {time}"
+
+[[block]]
+block = "sound"
+show_volume_when_muted = true
+
+[[block]]
+block = "time"
+interval = 1
+format = "%a %d/%m/%y %T"
+
+[[block]]
+block = "pomodoro"
+length = 30
+break_length = 5
+message = "Take a break!"
+break_message = "Back to work!"
+use_nag = false
+
+#[[block]]
+#block = "keyboard_layout"

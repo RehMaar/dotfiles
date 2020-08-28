@@ -1,14 +1,87 @@
-colorscheme default
+colorscheme palenight
 
-set current tabstop 4 
+set current tabstop 2
 
-hook global WinCreate .* %{ addhl number_lines }
-# User added hook
-hook global WinCreate .*\.(c|h) %{ 
-    hook window InsertChar \t %{ exec -draft -itersel h@ } 
-    set formatcmd "indent"
+add-highlighter global/ number-lines
+
+hook global WinSetOption filetype=rust %{
+    set buffer formatcmd 'rustfmt'
 }
 
+hook global WinSetOption filetype=haskell %{
+    set buffer lintcmd 'hlint'
+}
+
+# User added hook
+#hook global WinCreate .*\.(c(p+?)|h|(hs)|(rs)|(py)) %{ 
+#    hook window InsertChar \t %{ exec -draft -itersel h@ } 
+#    set formatcmd "indent"
+#}
+
+hook global WinCreate .*\.rs %{
+	racer-enable-autocomplete 
+}
+
+hook global WinCreate .*\.(tex|txt|md) %{
+    colorscheme reeder
+}
+
+#
+# Explicitly add tabstop. Still need fix something to work with <tab>-<arrow>
+#
+hook global WinCreate .*\.hs %{
+    set current tabstop 2
+}
+
+hook global WinCreate .*\.cpp %{
+    set current tabstop 2
+}
+
+#
+# Hm... Vim-like stuff?
+#
 map global insert <C-q> <esc>
-# Remove trailing spaces.
-map global user <C-q>  '%s +(?=\n)<ret>d'
+
+#
+# Commenting lines
+# 
+map global normal <c-a-l> ':comment-line<ret>'
+map global normal <c-a-b> ':comment-block<ret>'
+
+#
+# TODO: have no idea what is it
+#
+def latex_add_end %{ echo %{kak_selection}}
+
+#
+# Block comments for OCaml
+# 
+hook global BufSetOption filetype=ocaml %{
+    set-option buffer comment_block_begin '(*'
+    set-option buffer comment_block_end '*)'
+}
+
+#
+# Add Scheme highlighting for Racket 
+#
+hook global WinCreate .*\.rkt %{
+	set-option current filetype 'scheme'
+    set-option current tabstop 2
+    set-option current indentwidth 2
+}
+
+#
+# Add vertical splitting for tmux
+#
+define-command tmux-new-vertical -params .. -command-completion -docstring '
+tmux-new-vertical [<commands>]: split the tmux pane vertically
+'\
+%{ tmux-terminal-vertical kak -c %val{session} -e "%arg{@}" }
+
+#
+# Enable LSP
+#
+eval %sh{kak-lsp --kakoune -s $kak_session}
+hook global WinSetOption filetype=(rust|haskell|c|cpp) %{
+    lsp-enable-window
+}

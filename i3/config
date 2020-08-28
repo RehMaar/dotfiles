@@ -14,6 +14,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 10
+#font pango:DejaVu Sans Mono, Awesome 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -30,7 +31,7 @@ font pango:monospace 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -154,17 +155,18 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-   status_command i3status -c ~/.i3/i3status.conf
+   #status_command i3status -c ~/.i3/i3status.conf
+   status_command i3status-rs ~/.i3/config_rs.toml
 
    colors {
         background #000000
-        statusline #ffffff
+   #     statusline #ffff00
 
-        focused_workspace  #4c7899 #285577 #ffffff
-        active_workspace   #333333 #5f676a #ffffff
-        inactive_workspace #333333 #222222 #888888
-        urgent_workspace   #2f343a #900000 #ffffff
-    }
+   ##     focused_workspace  #4c7899 #285577 #ffffff
+   #     active_workspace   #333333 #5f676a #ffffff
+   #     inactive_workspace #333333 #222222 #888888
+   #     urgent_workspace   #2f343a #900000 #ffffff
+   }
 }
 
 # class                 border  backgr. text    indicator
@@ -174,29 +176,34 @@ bar {
  client.urgent           #2f343a #900000 #ffffff #900000
  client.placeholder      #000033 #0c0c0c #ffffff #000000
 
-set border none 
+#set border none 
 
 # Custom keybinds
 #
 bindsym $mod+z exec zathura
 bindsym $mod+Shift+Tab exec sh ~/.i3/i3lock.sh
-bindsym $mod+p exec scrot 'screenshot-%Y-%m-%d-%T.png' -e 'mv $f ~/shots/'
-focus_follows_mouse no
+bindsym $mod+p exec scrot 'screenshot-%Y-%m-%d-%T.png' -e 'mv $f ~/images/screenshots/'
+#focus_follows_mouse no
 
 
 #Start programs
 #
-#exec --no-startup-id feh --bg-scale ~/img/backgroundImg2.jpg
-exec setxkbmap -layout us,ru -option "grp:rctrl_toggle,compose:ralt"
-exec --no-startup-id dunst
-
-exec --no-startup-id feh --bg-fill "/home/maar/images/background.jpg"
+exec setxkbmap -layout us,ru -option "grp:caps_toggle"
+#exec --no-startup-id redshift
+#exec --no-startup-id redshift -l 59.5:30.33
+#exec --no-startup-id redshift -c .config/redshift.conf
+exec --no-startup-id feh --bg-fill "/home/maar/.i3/background.jpg"
+exec --no-startup-id /usr/lib/kdeconnectd
 
 # Control buttons
 bindsym XF86AudioRaiseVolume exec amixer -q sset Master 2%+
 bindsym XF86AudioLowerVolume exec amixer -q sset Master 2%-
-bindsym XF86AudioToggle exec amixer --quiet set PCM toggle
-bindsym XF86MonBrightnessDown exec light -U 3
-bindsym XF86MonBrightnessUp exec light -A 3
+bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle 
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 
-bindsym Print exec scrot -e 'mv $f ~/images/screenshots'
+bindsym Print exec scrot -e 'mv $f ~/Images/Screenshots/'
+
+bindsym $mod+b bar mode toggle
+bindsym $mod+x border toggle
+

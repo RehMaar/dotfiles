@@ -1,0 +1,69 @@
+#source ~/.zshrc.grml
+
+set -o emacs
+
+# Zsh commands
+autoload -U promptinit
+
+autoload -Uz compinit
+compinit
+
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search # Up
+bindkey "^[[B" down-line-or-beginning-search # Down
+
+# Aliases
+#alias tmux='tmux attach || tmux new'
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto -X'
+#     alias dir='dir --color=auto'
+#     alias vdir='vdir --color=auto'
+# 
+#     alias grep='grep --color=auto'
+#     alias fgrep='fgrep --color=auto'
+#     alias egrep='egrep --color=auto'
+fi
+
+alias mpvhw='mpv --hwdec=vaapi --vo=vaapi'
+
+# Environment
+export EDITOR=kak
+export LOCAL_PATH=$HOME/.local
+export OPAM_BIN_PATH=$HOME/.opam/default/bin/
+export PATH=$OPAM_BIN_PATH:$LOCAL_PATH/bin:$LOCAL_PATH/usr/local/bin:$PATH:$HOME/.cabal/bin
+
+export WINEPREFIX=$HOME/wine_prefixes/32x
+
+# SDCV
+export SDCV_HISTSIZE=0
+# zsh history
+unset HISTFILE
+
+rebuild() {
+    command="$1"
+    file="$2"
+	[ -n "$file" ] && while true; do inotifywait -e MODIFY "$file"; eval "$command"; done
+}
+
+rebuild1() {
+    command="$1"
+    shift 1 # To get a list of files to track only
+	while true; do inotifywait -e MODIFY $@; eval "$command"; done
+}
+
+alias fix_lang='setxkbmap -layout us,ru -option "grp:caps_toggle"'
+
+alias fc='fc -e "kak -e \"set buffer filetype sh\""'
+
+alias record_cam='mpv av://v4l2:/dev/video0'
+
+alias git-graph='git log --graph --oneline --all'
+
+alias runghci='stack ghci --ghci-options="+RTS -M2G"'
+
+alias touchpad_gamemode='xinput --set-prop 13 327 0'
